@@ -1,13 +1,13 @@
 
 import express from 'express'
-import db from '../db.js'
+
 import { authMiddleware } from '../middleware/authMiddleware.js'
 
 
 const router = express.Router()
 
 router.get('/', authMiddleware,(req, res) => {
-    res.json("OK")
+    res.json("OK You arrived to final endpoint.")
  })
 
 

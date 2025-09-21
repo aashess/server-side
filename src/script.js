@@ -1,7 +1,5 @@
-
+import prisma from './prisma.js'
 import express from 'express'
-import path, {dirname} from 'path'
-import { fileURLToPath } from 'url'
 import authRoutes from './routes/authRoutes.js'
 import todoRoutes from './routes/todoRoutes.js'
 import cors from 'cors'
@@ -12,6 +10,7 @@ import { authMiddleware } from './middleware/authMiddleware.js'
 const app = express()
 
 const PORT = process.env.PORT || 8383
+
 
 app.use(cookieParser())
 
@@ -33,10 +32,22 @@ app.use('/auth',authRoutes)
 app.use('/todos',todoRoutes)
 
 
-app.get("/getUser",authMiddleware,(req,res)=>{
-    //req.userId
-    res.json({message:"ok"})
-})
+// -------Middleware ------
+app.get("/getUser",authMiddleware,async (req,res) => {
+  const userId = req.userId
+  const userData = await prisma.user.findUnique({
+    where : {
+      id: userId
+    }
+  })
+  res.json(userData)
+
+} )
+
+
+
+
+app.use('/todos', authMiddleware, todoRoutes)
 
 
 
