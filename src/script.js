@@ -25,7 +25,7 @@ app.use(cors({
 app.use(express.json())
 
 app.get('/', (req,res) => {
-    res.json("ok")
+    res.json("okkkk")
 })
 
 app.use('/auth',authRoutes)
@@ -43,9 +43,6 @@ app.get("/getUser",authMiddleware,async (req,res) => {
   res.json(userData)
 
 } )
-
-
-
 
 app.use('/todos', authMiddleware, todoRoutes)
 
