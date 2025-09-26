@@ -11,7 +11,9 @@ router.get('/', authMiddleware,(req, res) => {
  })
 
 
-router.post('/', (req, res) => { })
+router.post('/', (req, res) => {
+    
+})
 
 
 router.put('/:id', (req, res) => { })

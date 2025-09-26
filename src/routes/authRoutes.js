@@ -28,42 +28,8 @@ router.post("/register", async (req, res) => {
         password: hashPassword,
       },
     });
-
-    console.log("Database Details: ", newUser);
-
-    const defaultTodo = `HELLO :) Add your first ToDo!`;
-    // database insert
-
-    await prisma.todo.create({
-      data: {
-        title: defaultTodo,
-        userId: newUser.id,
-      },
-    });
-    // b.prepare(
-    //   `INSERT INTO todo (user_id,task) VALUES (? , ?)`
-    // );
-
-    // insertTodo.run(result.lastInsertRowid, defaultTodo);
-
-    // console.log(result);
-
-    // create a token
-    // const token = jwt.sign(
-    //   { id: newUser.id, email: email },
-    //   process.env.JWT_SECRET,
-    //   { expiresIn: "24h" }
-    // );
-    console.log("Successfully Registerd.");
     res.json({ message: "Succefully Registered" });
 
-    // cookies applied...
-    //         res.cookie('token', token, {
-    //   httpOnly: true,
-    //   secure: false, // true if https
-    //   maxAge: 24 * 60 * 60 * 1000,
-    //   sameSite: "none"
-    // });
   } catch (err) {
     console.log(err.message);
     if (err.code === "P2002") {
@@ -103,7 +69,7 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign(
       { id: getUser.id, email: getUser.email },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET_KEY,
       { expiresIn: "24h" }
     );
 

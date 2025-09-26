@@ -34,12 +34,17 @@ app.use('/todos',todoRoutes)
 
 // -------Middleware ------
 app.get("/getUser",authMiddleware,async (req,res) => {
+  
   const userId = req.userId
+  console.log(userId);
+  
   const userData = await prisma.user.findUnique({
     where : {
       id: userId
     }
   })
+  
+  
   res.json(userData)
 
 } )
